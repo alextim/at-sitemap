@@ -1,0 +1,32 @@
+{
+  "name": "at-sitemap",
+  "description": "Replacement for gatsby-plugin-sitemap. Serves: pages and posts with state non 'draft' and related images",
+  "private": true,
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "Oleksii Tymoshenko <buildmnt@gmail.com>",
+  "keywords": [
+    "gatsby",
+    "gatsbyjs"
+  ],
+  "main": "n/a",
+  "homepage": "https://github.com/alextim/at-sitemap",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alextim/at-sitemap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alextim/at-sitemap/issues"
+  },
+  "scripts": {
+  },
+  "dependencies": {
+    "sitemap": "^6.4.0"
+  },
+  "devDependencies": {
+  },
+  "peerDependencies": {
+    "gatsby": ">=3.0.1",
+    "react": ">=17.0.1"
+  }
+}
