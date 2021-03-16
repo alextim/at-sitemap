@@ -96,7 +96,7 @@ module.exports = (allPages, reporter, options, siteUrl) => {
     },
   };
 
-  const filePath = `${options.buildDir}/${options.imageSitemapPath}`;
+  const filePath = `${options.buildDir}/${options.imageSitemap}`;
 
   reporter.info(`Creating sitemap for ${imagesCount} images.`);
   writeSiteMap(urlData, generationOptions, filePath).then(() =>

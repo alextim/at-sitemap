@@ -58,7 +58,7 @@ module.exports = (allPages, reporter, options, siteUrl, allLocales) => {
   };
 
   reporter.info(`Creating sitemap for ${urlData.length} nodes.`);
-  const filePath = `${options.buildDir}/${options.mainSitemapPath}`;
+  const filePath = `${options.buildDir}/${options.mainSitemap}`;
   writeSiteMap(urlData, generationOptions, filePath).then(() =>
     reporter.info(`Main sitemap successfully written to ${filePath}`),
   );
