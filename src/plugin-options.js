@@ -12,10 +12,10 @@ module.exports = (pluginOptions) => ({
   buildDir: pluginOptions.buildDir || './public',
 
   // don't add images with missing alt tag to sitemap
-  ignoreImagesWithoutAlt: pluginOptions.ignoreImagesWithoutAlt ?? false,
+  ignoreImagesWithoutAlt: !!pluginOptions.ignoreImagesWithoutAlt,
 
   // add image sitemap link to pages' head
-  createLinkInHead: pluginOptions.createLinkInHead ?? true,
+  createLinkInHead: !!pluginOptions.createLinkInHead,
 
   specialFolder: pluginOptions.specialFolder || 'assets',
 });
