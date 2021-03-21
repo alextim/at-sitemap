@@ -1,3 +1,6 @@
+const sanitize = (x, defaultValue) => x === undefined ? defaultValue : x;
+const sanitizeTrue = (x) => !!sanitize(x, true);
+
 module.exports = (pluginOptions) => ({
   // pages to exclude.
   // Paths must start with "/"
@@ -12,10 +15,10 @@ module.exports = (pluginOptions) => ({
   buildDir: pluginOptions.buildDir || './public',
 
   // don't add images with missing alt tag to sitemap
-  ignoreImagesWithoutAlt: !!pluginOptions.ignoreImagesWithoutAlt,
+  ignoreImagesWithoutAlt: sanitizeTrue(pluginOptions.ignoreImagesWithoutAlt),
 
-  // add image sitemap link to pages' head
-  createLinkInHead: !!pluginOptions.createLinkInHead,
+  // add sitemaps link to pages' head
+  createLinkInHead: sanitizeTrue(pluginOptions.createLinkInHead),
 
   specialFolder: pluginOptions.specialFolder || 'assets',
 });
