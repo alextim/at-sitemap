@@ -44,7 +44,7 @@ module.exports = (allPages, reporter, options, siteUrl, allLocales) => {
   });
   if (!urlData.length) {
     reporter.info('No data for sitemap. Nothing generated.');
-    return;
+    return false;
   }
 
   const generationOptions = {
@@ -59,7 +59,8 @@ module.exports = (allPages, reporter, options, siteUrl, allLocales) => {
 
   reporter.info(`Creating sitemap for ${urlData.length} nodes.`);
   const filePath = `${options.buildDir}/${options.mainSitemap}`;
-  writeSiteMap(urlData, generationOptions, filePath).then(() =>
-    reporter.info(`Main sitemap successfully written to ${filePath}`),
-  );
+  return writeSiteMap(urlData, generationOptions, filePath).then(() => {
+    reporter.info(`Main sitemap successfully written to ${filePath}`);
+    return true;
+  });
 };

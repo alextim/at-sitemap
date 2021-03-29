@@ -12,13 +12,15 @@ During build it generates
 
 ## Plugin options
 
-| Name                   | Default value
-|---                     |---
-| excludePaths           | ['/dev-404-page', '/404', '/404.html']
-| mainSitemap            | 'sitemap.xml'
-| mainSitemap            | 'sitemap.xml'
-| imageSitemap           | 'image-sitemap.xml'
-| buildDir               | './public'
-| ignoreImagesWithoutAlt | true
-| createLinkInHead       | true
-| specialFolder          | 'assets'
+| Name                   | Default value                          | Note
+|---                     |---                                     |---
+| createRobotsTxt        | true                                   |
+| noRobots               | true                                   | true  - `Disallow: /`
+|                        |                                        | false - `Disallow:`
+| excludePaths           | ['/dev-404-page', '/404', '/404.html'] |
+| mainSitemap            | 'sitemap.xml'                          |
+| imageSitemap           | 'image-sitemap.xml'                    |
+| buildDir               | './public'                             |
+| ignoreImagesWithoutAlt | true                                   |
+| createLinkInHead       | true                                   |
+| specialFolder          | 'assets'                               |

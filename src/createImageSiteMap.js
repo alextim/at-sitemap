@@ -83,7 +83,7 @@ module.exports = (allPages, reporter, options, siteUrl) => {
 
   if (!imagesCount) {
     reporter.info('No images for sitemap. Nothing generated.');
-    return;
+    return false;
   }
 
   const generationOptions = {
@@ -99,7 +99,8 @@ module.exports = (allPages, reporter, options, siteUrl) => {
   const filePath = `${options.buildDir}/${options.imageSitemap}`;
 
   reporter.info(`Creating sitemap for ${imagesCount} images.`);
-  writeSiteMap(urlData, generationOptions, filePath).then(() =>
-    reporter.info(`Image sitemap successfully written to ${filePath}`),
-  );
+  return writeSiteMap(urlData, generationOptions, filePath).then(() => {
+    reporter.info(`Image sitemap successfully written to ${filePath}`);
+    return true;
+  });
 };

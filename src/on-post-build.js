@@ -1,5 +1,6 @@
 const createSiteMap = require('./createSiteMap');
 const createImageSiteMap = require('./createImageSiteMap');
+const createRobotsTxt = require('./createRobotsTxt');
 
 const withOptions = require('./plugin-options');
 
@@ -98,13 +99,16 @@ module.exports = async ({ graphql, reporter }, pluginOptions) => {
 
   const allPages = [...pages, ...posts];
 
-  if (!allPages.length) {
+  let mainNotEmpty;
+  let imagesNotEmpty;
+  if (allPages.length) {
+    reporter.info(`Posts: ${posts.length}`);
+    reporter.info(`Pages: ${pages.length}`);
+    mainNotEmpty = createSiteMap(allPages, reporter, options, siteUrl, locales);
+    imagesNotEmpty = createImageSiteMap(allPages, reporter, options, siteUrl);
+  } else {
     reporter.info('No data for sitemap');
-    return;
   }
-  reporter.info(`Posts: ${posts.length}`);
-  reporter.info(`Pages: ${pages.length}`);
 
-  createSiteMap(allPages, reporter, options, siteUrl, locales);
-  createImageSiteMap(allPages, reporter, options, siteUrl);
+  createRobotsTxt(reporter, options, siteUrl, mainNotEmpty, imagesNotEmpty);
 };

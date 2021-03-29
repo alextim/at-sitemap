@@ -2,6 +2,11 @@ const sanitize = (x, defaultValue) => x === undefined ? defaultValue : x;
 const sanitizeTrue = (x) => !!sanitize(x, true);
 
 module.exports = (pluginOptions) => ({
+  // default: true
+  createRobotsTxt: sanitizeTrue(pluginOptions.createRobotsTxt),
+  // default: true
+  noRobots: sanitizeTrue(pluginOptions.noRobots),
+  
   // pages to exclude.
   // Paths must start with "/"
   excludePaths: pluginOptions.excludePaths || ['/dev-404-page', '/404', '/404.html'],
