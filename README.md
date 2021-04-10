@@ -12,7 +12,7 @@ During build it generates
 
 ## Plugin options
 
-| Name                   | Default value                          | Note
+| Name                   | Default value                          |
 |---                     |---                                     |---
 | createRobotsTxt        | true                                   |
 | noRobots               | true                                   | true  - `Disallow: /`
@@ -21,6 +21,7 @@ During build it generates
 | mainSitemap            | 'sitemap.xml'                          |
 | imageSitemap           | 'image-sitemap.xml'                    |
 | buildDir               | './public'                             |
+| lastmod                | 1                                      | 0 - no, 1 - build date, 2 - dateModified
 | ignoreImagesWithoutAlt | true                                   |
 | createLinkInHead       | true                                   |
-| specialFolder          | 'assets'                               |
+| specialFolder          | 'assets'                               | looks for images here

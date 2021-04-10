@@ -20,7 +20,9 @@ module.exports = (allPages, reporter, options, siteUrl, allLocales) => {
     return acc;
   }, {});
 
-  const urlData = allPages.map(({ node: { slug } }) => {
+  const [ buildDate ] = new Date().toISOString().split('T');
+
+  const urlData = allPages.map(({ node: { slug, dateModified } }) => {
     const pureSlug = getPureSlug(slug, localeCodes);
 
     const links = allPages
@@ -35,6 +37,12 @@ module.exports = (allPages, reporter, options, siteUrl, allLocales) => {
       changefreq: 'weekly',
       priority: 0.7,
     };
+
+    if (options.changemode === 1) {
+      result.lastmod = buildDate;
+    } else if (options.changemode === 2 && dateModified) {
+      result.lastmod = new Date(dateModified).toISOString().split('T')[0];
+    }
 
     if (links) {
       result.links = [...links];
