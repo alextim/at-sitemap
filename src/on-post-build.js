@@ -80,30 +80,6 @@ module.exports = async ({ graphql, reporter }, pluginOptions) => {
                 publicURL
               }
             }
-            sections {
-              image {
-                title
-                alt
-                xl {
-                  publicURL
-                }
-                sm {
-                  publicURL
-                }
-              }
-              items {
-                image {
-                  title
-                  alt
-                  sm {
-                    publicURL
-                  }
-                  xl {
-                    publicURL
-                  }
-                }
-              }
-            }
             htmlAst
           }
         }
