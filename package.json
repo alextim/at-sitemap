@@ -1,5 +1,5 @@
 {
-  "name": "at-sitemap",
+  "name": "@alextim/at-sitemap",
   "description": "Replacement for gatsby-plugin-sitemap. Serves: pages and posts with state non 'draft' and related images",
   "version": "0.2.0",
   "license": "MIT",
@@ -29,6 +29,6 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "comments": {
-	"name": "@alextim/at-sitemap"
+    "name": "at-sitemap"
   }
 }
