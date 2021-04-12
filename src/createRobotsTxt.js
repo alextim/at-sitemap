@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-module.exports = (reporter, options, siteUrl, mainNotEmpty, imagesNotEmpty) => {
+module.exports = (reporter, options, siteUrl, mainNotEmpty) => {
   if (!options.createRobotsTxt) {
     reporter.info('"robots.txt" generation is disabled');
     return;
@@ -9,14 +9,11 @@ module.exports = (reporter, options, siteUrl, mainNotEmpty, imagesNotEmpty) => {
   let s = `
 User-agent: *
 Disallow: ${options.noRobots ? '/' : ''}`;
-  
+
   if (mainNotEmpty) {
-    s += `\nsitemap: ${siteUrl}/${options.mainSitemap}`;
+    s += `\nsitemap: ${siteUrl}/${options.sitemapFileName}`;
   }
-  if (imagesNotEmpty) {
-    s += `\nsitemap: ${siteUrl}/${options.imageSitemap}`;
-  }
-  
+
   const filePath = `${options.buildDir}/robots.txt`;
 
   fs.writeFileSync(filePath, s);

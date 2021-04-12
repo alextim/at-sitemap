@@ -1,4 +1,5 @@
 const writeSiteMap = require('./write-sitemap');
+const getNodeImages = require('./getNodeImages');
 
 const getPureSlug = (slug, localeCodes) => {
   const a = slug.split('/');
@@ -20,10 +21,23 @@ module.exports = (allPages, reporter, options, siteUrl, allLocales) => {
     return acc;
   }, {});
 
-  const [ buildDate ] = new Date().toISOString().split('T');
+  const buildDate = new Date().toISOString();
 
-  const urlData = allPages.map(({ node: { slug, dateModified } }) => {
+  const urlData = allPages.map(({ node }) => {
+    const { slug } = node;
     const pureSlug = getPureSlug(slug, localeCodes);
+
+    const result = {
+      url: siteUrl + slug,
+      changefreq: 'weekly',
+      priority: 0.7,
+    };
+
+    if (options.lastmod === 1) {
+      result.lastmod = buildDate;
+    } else if (options.lastmod === 2 && node.dateModified) {
+      result.lastmod = new Date(node.dateModified).toISOString();
+    }
 
     const links = allPages
       .filter(({ node: { slug: linkSlug } }) => getPureSlug(linkSlug, localeCodes) === pureSlug)
@@ -32,24 +46,20 @@ module.exports = (allPages, reporter, options, siteUrl, allLocales) => {
         lang: locales[linkLocale],
       }));
 
-    const result = {
-      url: siteUrl + slug,
-      changefreq: 'weekly',
-      priority: 0.7,
-    };
-
-    if (options.changemode === 1) {
-      result.lastmod = buildDate;
-    } else if (options.changemode === 2 && dateModified) {
-      result.lastmod = new Date(dateModified).toISOString().split('T')[0];
+    if (links) {
+      result.links = links;
     }
 
-    if (links) {
-      result.links = [...links];
+    if (options.includeImages) {
+      const img = getNodeImages(siteUrl, node, options.ignoreImagesWithoutAlt);
+      if (img) {
+        result.img = img;
+      }
     }
 
     return result;
   });
+
   if (!urlData.length) {
     reporter.info('No data for sitemap. Nothing generated.');
     return false;
@@ -57,18 +67,19 @@ module.exports = (allPages, reporter, options, siteUrl, allLocales) => {
 
   const generationOptions = {
     hostname: siteUrl,
+    lastmodDateOnly: options.lastmodDateOnly,
     xmlns: {
       news: false,
       xhtml: true,
-      image: false,
+      image: options.includeImages,
       video: false,
     },
   };
 
   reporter.info(`Creating sitemap for ${urlData.length} nodes.`);
-  const filePath = `${options.buildDir}/${options.mainSitemap}`;
+  const filePath = `${options.buildDir}/${options.sitemapFileName}`;
   return writeSiteMap(urlData, generationOptions, filePath).then(() => {
-    reporter.info(`Main sitemap successfully written to ${filePath}`);
+    reporter.info(`Sitemap successfully written to ${filePath}`);
     return true;
   });
 };

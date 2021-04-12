@@ -18,10 +18,11 @@ During build it generates
 | noRobots               | true                                   | true  - `Disallow: /`
 |                        |                                        | false - `Disallow:`
 | excludePaths           | ['/dev-404-page', '/404', '/404.html'] |
-| mainSitemap            | 'sitemap.xml'                          |
-| imageSitemap           | 'image-sitemap.xml'                    |
+| sitemapFileName        | 'sitemap.xml'                          |
 | buildDir               | './public'                             |
 | lastmod                | 1                                      | 0 - no, 1 - build date, 2 - dateModified
+| lastmodDateOnly        | false                                  | [sitemap.js API](https://github.com/ekalinin/sitemap.js/blob/master/api.md)
+| includeImages          | true                                   |
 | ignoreImagesWithoutAlt | true                                   |
 | createLinkInHead       | true                                   |
 | specialFolder          | 'assets'                               | looks for images here
