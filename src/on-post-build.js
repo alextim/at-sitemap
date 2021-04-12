@@ -1,5 +1,5 @@
-const createSitemap = require('./createSitemap');
-const createRobotsTxt = require('./createRobotsTxt');
+const createSitemap = require('./create-sitemap');
+const createRobotsTxt = require('./create-robots-txt');
 
 const withOptions = require('./plugin-options');
 

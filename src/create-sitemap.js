@@ -1,5 +1,5 @@
 const writeSiteMap = require('./write-sitemap');
-const getNodeImages = require('./getNodeImages');
+const getNodeImages = require('./get-node-images');
 
 const getPureSlug = (slug, localeCodes) => {
   const a = slug.split('/');
