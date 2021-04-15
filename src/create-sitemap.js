@@ -22,7 +22,7 @@ const getSlugLocale = (slug, localeCodes, defaultLang) => {
 };
 
 module.exports = (allSitePages, allMdPages, reporter, options, siteUrl, allLocales, defaultLang) => {
-  reporter.info(`Generating sitemap for ${allSitePages.length} nodes...`);
+  reporter.info(`Parsing ${allSitePages.length} nodes...`);
 
   const localeCodes = allLocales.map(({ code }) => code);
 
@@ -87,10 +87,10 @@ module.exports = (allSitePages, allMdPages, reporter, options, siteUrl, allLocal
     },
   };
 
-  reporter.info(`Creating sitemap for ${urlData.length} nodes.`);
   const filePath = `${options.buildDir}/${options.sitemapFileName}`;
+  reporter.info(`Writing sitemap to "${filePath}" for ${urlData.length} URLs...`);
   return writeSiteMap(urlData, generationOptions, filePath).then(() => {
-    reporter.info(`Sitemap successfully written to ${filePath}`);
+    reporter.info('Sitemap created');
     return true;
   });
 };
