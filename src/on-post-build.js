@@ -105,7 +105,7 @@ module.exports = async ({ graphql, reporter }, pluginOptions) => {
 
   const pages = result.data.pages.edges.filter(({ node: { slug } }) => !inExcludedPaths(slug));
   const posts = result.data.posts.edges.filter(({ node: { slug } }) => !inExcludedPaths(slug));
-  const allSitePages = result.data.allSitePage.edges.filter(({ node: { slug } }) => !inExcludedPaths(slug));;
+  const allSitePages = result.data.allSitePage.edges.filter(({ node: { path } }) => !inExcludedPaths(path));;
 
   const allMdPages = [...pages, ...posts];
 
