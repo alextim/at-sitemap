@@ -42,12 +42,12 @@ module.exports = (allSitePages, allMdPages, reporter, options, siteUrl, allLocal
       priority: 0.7,
     };
 
-    const node = allMdPages.find(({ node: { slug } }) => slug === path);
+    const edge = allMdPages.find(({ node: { slug } }) => slug === path);
 
     if (options.lastmod === 1) {
       result.lastmod = buildDate;
-    } else if (options.lastmod === 2 && node && node.dateModified) {
-      result.lastmod = new Date(node.dateModified).toISOString();
+    } else if (options.lastmod === 2 && edge && edge.node.dateModified) {
+      result.lastmod = new Date(edge.node.dateModified).toISOString();
     }
 
     const links = allSitePages
@@ -61,8 +61,8 @@ module.exports = (allSitePages, allMdPages, reporter, options, siteUrl, allLocal
       result.links = links;
     }
 
-    if (options.includeImages && node) {
-      const img = getNodeImages(siteUrl, node, options.ignoreImagesWithoutAlt);
+    if (options.includeImages && edge) {
+      const img = getNodeImages(siteUrl, edge.node, options.ignoreImagesWithoutAlt);
       if (img) {
         result.img = img;
       }
