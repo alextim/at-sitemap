@@ -11,8 +11,18 @@ const getPureSlug = (slug, localeCodes) => {
   return `/${a.slice(2).join('/')}`;
 };
 
-module.exports = (allPages, reporter, options, siteUrl, allLocales) => {
-  reporter.info(`Generating main sitemap for ${allPages.length} nodes...`);
+const getSlugLocale = (slug, localeCodes, defaultLang) => {
+  const a = slug.split('/');
+  const locale = a[1];
+  const isLocalized = localeCodes.some((el) => locale === el);
+  if (!isLocalized) {
+    return defaultLang;
+  }
+  return locale;
+};
+
+module.exports = (allSitePages, allMdPages, reporter, options, siteUrl, allLocales, defaultLang) => {
+  reporter.info(`Generating sitemap for ${allSitePages.length} nodes...`);
 
   const localeCodes = allLocales.map(({ code }) => code);
 
@@ -23,34 +33,35 @@ module.exports = (allPages, reporter, options, siteUrl, allLocales) => {
 
   const buildDate = new Date().toISOString();
 
-  const urlData = allPages.map(({ node }) => {
-    const { slug } = node;
-    const pureSlug = getPureSlug(slug, localeCodes);
+  const urlData = allSitePages.map(({ node: { path } }) => {
+    const pureSlug = getPureSlug(path, localeCodes);
 
     const result = {
-      url: siteUrl + slug,
+      url: siteUrl + path,
       changefreq: 'weekly',
       priority: 0.7,
     };
 
+    const node = allMdPages.find(({ node: { slug } }) => slug === path);
+
     if (options.lastmod === 1) {
       result.lastmod = buildDate;
-    } else if (options.lastmod === 2 && node.dateModified) {
+    } else if (options.lastmod === 2 && node && node.dateModified) {
       result.lastmod = new Date(node.dateModified).toISOString();
     }
 
-    const links = allPages
-      .filter(({ node: { slug: linkSlug } }) => getPureSlug(linkSlug, localeCodes) === pureSlug)
-      .map(({ node: { slug: linkSlug, locale: linkLocale } }) => ({
+    const links = allSitePages
+      .filter(({ node: { path: linkSlug } }) => getPureSlug(linkSlug, localeCodes) === pureSlug)
+      .map(({ node: { path: linkSlug } }) => ({
         url: siteUrl + linkSlug,
-        lang: locales[linkLocale],
+        lang: locales[getSlugLocale(linkSlug, localeCodes, defaultLang)],
       }));
 
     if (links) {
       result.links = links;
     }
 
-    if (options.includeImages) {
+    if (options.includeImages && node) {
       const img = getNodeImages(siteUrl, node, options.ignoreImagesWithoutAlt);
       if (img) {
         result.img = img;

@@ -17,8 +17,16 @@ module.exports = async ({ graphql, reporter }, pluginOptions) => {
             code
             htmlLang
           }
+          defaultLang
         }
       }
+      allSitePage {
+        edges {
+          node {
+            path
+          }
+        }
+      }      
       pages: allMdPage {
         edges {
           node {
@@ -97,14 +105,17 @@ module.exports = async ({ graphql, reporter }, pluginOptions) => {
 
   const pages = result.data.pages.edges.filter(({ node: { slug } }) => !inExcludedPaths(slug));
   const posts = result.data.posts.edges.filter(({ node: { slug } }) => !inExcludedPaths(slug));
+  const allSitePages = result.data.allSitePage.edges.filter(({ node: { slug } }) => !inExcludedPaths(slug));;
 
-  const allPages = [...pages, ...posts];
+  const allMdPages = [...pages, ...posts];
 
   let mainNotEmpty;
-  if (allPages.length) {
-    reporter.info(`Posts: ${posts.length}`);
-    reporter.info(`Pages: ${pages.length}`);
-    mainNotEmpty = createSitemap(allPages, reporter, options, siteUrl, locales);
+  if (allSitePages.length) {
+    reporter.info(`Md Posts: ${posts.length}`);
+    reporter.info(`Md Pages: ${pages.length}`);
+    reporter.info('------------------');
+    reporter.info(`Total Nodes: ${allSitePages.length}`);
+    mainNotEmpty = createSitemap(allSitePages, allMdPages, reporter, options, siteUrl, locales, defaultLang);
   } else {
     reporter.info('No data for sitemap');
   }
