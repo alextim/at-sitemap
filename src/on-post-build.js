@@ -98,7 +98,7 @@ module.exports = async ({ graphql, reporter }, pluginOptions) => {
     reporter.panic(result.errors);
     return;
   }
-  const { siteUrl, locales } = result.data.site.siteMetadata;
+  const { siteUrl, locales, defaultLang } = result.data.site.siteMetadata;
 
   const inExcludedPaths = (slug) =>
     options.excludePaths.some((exPath) => slug.indexOf(exPath) !== -1);
