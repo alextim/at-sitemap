@@ -15,7 +15,7 @@ During build it generates
 | Name                   | Default value                          |   Notes   |
 | ---                    | ---                                    | ---
 | createRobotsTxt        | true                                   |
-| noRobots               | true                                   | true  - `Disallow: /`
+| noIndex                | true                                   | true  - `Disallow: /`
 |                        |                                        | false - `Disallow:`
 | excludePaths           | ['/dev-404-page', '/404', '/404.html'] |
 | sitemapFileName        | `sitemap.xml`                          |

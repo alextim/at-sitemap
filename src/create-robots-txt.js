@@ -8,7 +8,7 @@ module.exports = (reporter, options, siteUrl, mainNotEmpty) => {
 
   let s = `
 User-agent: *
-Disallow: ${options.noRobots ? '/' : ''}`;
+Disallow: ${options.noIndex ? '/' : ''}`;
 
   if (mainNotEmpty) {
     s += `\nsitemap: ${siteUrl}/${options.sitemapFileName}`;
