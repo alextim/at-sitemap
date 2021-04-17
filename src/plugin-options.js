@@ -5,7 +5,7 @@ module.exports = (pluginOptions) => ({
   // default: true
   createRobotsTxt: sanitizeTrue(pluginOptions.createRobotsTxt),
   // default: true
-  noIndex: sanitizeTrue(pluginOptions.noIndex),
+  noIndex: !!pluginOptions.noIndex,
 
   // pages to exclude.
   // Paths must start with "/"
